@@ -2,5 +2,5 @@ streamlit
 pandas
 torch==1.10.1 -f https://download.pytorch.org/whl/torch_stable.html
 torchvision==0.11.2 -f https://download.pytorch.org/whl/torch_stable.html
---find-links https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/index.html
+--find-links https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/index.html
 detectron2
