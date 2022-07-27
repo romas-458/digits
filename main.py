@@ -285,7 +285,7 @@ if __name__ == '__main__':
 
     model_name = 'model_final'  # '30im_10cl_2000it_faster_rcnn_R_50_FPN_3x_None'
     model_name = 'model_0003999'
-    model_name = 'model_final_8000'
+    # model_name = 'model_final_8000'
     # model_name = 'model_final_4000_nms_01'
     model_path = ROOT_FOLDER + 'output/' + model_name + '.pth'
 
