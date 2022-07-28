@@ -140,57 +140,57 @@ def imagename(str):
     return str.split('/')[-1]
 
 
-def read_image(im_path, YAML_FILE, path_to_model, THR=0.5, dim=(500, 500),
-                                cat_lst=['pomeranc', 'poteklina']):
-
-    out_dct = {}
-
-    im_name = imagename(im_path)
-    # img = cv2.imread(os.path.join(root_path, d["file_name"]))
-    img = cv2.imread(im_path)
-    out_dct[im_name] = inference_2(image=img, path_to_model=path_to_model,
-                                   dataset_name=None, YAML_FILE=YAML_FILE,
-                                   cat_lst=cat_lst, thr=THR)
-    print(im_path)
-    # print(os.path.join(im_path, d["file_name"]))
-    labels_list = []
-    boxes = []
-    name_dict = {}
-
-    for i in range(len(out_dct[im_name]['cl_lst'])):
-        box = out_dct[im_name]['box_lst'][i]
-        box = [int(i) for i in box]
-        label = out_dct[im_name]['cl_lst'][i]
-        scores = out_dct[im_name]['scores'][i]
-        # print(label, scores)
-        # print(box)
-        labels_list.append(label)
-        boxes.append(box[0])
-
-        cv2.rectangle(img, (box[0], box[1]), (box[2], box[3]), (0, 255, 0), 1)
-        cv2.putText(img, label, (box[0], box[3]), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 4)
-    # cv2.putText(img, str(int(scores*100)), (box[0], box[3]),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-    # print(d["file_name"])
-    # print(labels_list)
-
-    for num, name in zip(boxes, labels_list):
-        name_dict[num] = name
-
-    # print(name_dict)
-
-    od = collections.OrderedDict(sorted(name_dict.items()))
-    digits_out_sorted = []
-    for k, v in od.items():
-        digits_out_sorted.append(v)
-
-    # print(od)
-
-    print(digits_out_sorted)
-
-    # resized = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
-    im_output_path = ROOT_FOLDER + 'output_images/' + im_path.split('/')[-1]
-    print(im_output_path)
-    cv2.imwrite(im_output_path, img)
+# def read_image(im_path, YAML_FILE, path_to_model, THR=0.5, dim=(500, 500),
+#                                 cat_lst=['pomeranc', 'poteklina']):
+#
+#     out_dct = {}
+#
+#     im_name = imagename(im_path)
+#     # img = cv2.imread(os.path.join(root_path, d["file_name"]))
+#     img = cv2.imread(im_path)
+#     out_dct[im_name] = inference_2(image=img, path_to_model=path_to_model,
+#                                    dataset_name=None, YAML_FILE=YAML_FILE,
+#                                    cat_lst=cat_lst, thr=THR)
+#     print(im_path)
+#     # print(os.path.join(im_path, d["file_name"]))
+#     labels_list = []
+#     boxes = []
+#     name_dict = {}
+#
+#     for i in range(len(out_dct[im_name]['cl_lst'])):
+#         box = out_dct[im_name]['box_lst'][i]
+#         box = [int(i) for i in box]
+#         label = out_dct[im_name]['cl_lst'][i]
+#         scores = out_dct[im_name]['scores'][i]
+#         # print(label, scores)
+#         # print(box)
+#         labels_list.append(label)
+#         boxes.append(box[0])
+#
+#         cv2.rectangle(img, (box[0], box[1]), (box[2], box[3]), (0, 255, 0), 1)
+#         cv2.putText(img, label, (box[0], box[3]), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 4)
+#     # cv2.putText(img, str(int(scores*100)), (box[0], box[3]),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+#     # print(d["file_name"])
+#     # print(labels_list)
+#
+#     for num, name in zip(boxes, labels_list):
+#         name_dict[num] = name
+#
+#     # print(name_dict)
+#
+#     od = collections.OrderedDict(sorted(name_dict.items()))
+#     digits_out_sorted = []
+#     for k, v in od.items():
+#         digits_out_sorted.append(v)
+#
+#     # print(od)
+#
+#     print(digits_out_sorted)
+#
+#     # resized = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
+#     im_output_path = ROOT_FOLDER + 'output_images/' + im_path.split('/')[-1]
+#     print(im_output_path)
+#     cv2.imwrite(im_output_path, img)
 
 def process_one_image(img, im_name, YAML_FILE, path_to_model, THR=0.5, dim=(500, 500),
                                 cat_lst=['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']):
@@ -246,7 +246,9 @@ def process_one_image(img, im_name, YAML_FILE, path_to_model, THR=0.5, dim=(500,
 
     return img, digits_out_sorted
 
-ROOT_FOLDER = '/home/roman/PycharmProjects/streamlit/digits/'
+# ROOT_FOLDER = '/home/roman/PycharmProjects/streamlit/digits/'
+
+ROOT_FOLDER = './'
 
 train_dct1 = {
     '10cl':
@@ -292,17 +294,17 @@ if __name__ == '__main__':
     YAML_FILE = 'Misc/cascade_mask_rcnn_R_50_FPN_3x.yaml'
     # YAML_FILE = 'COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml'
 
-    DATASET_NAME = model_name
+    # DATASET_NAME = model_name
 
-    val_dataset_name = DATASET_NAME + "_val_" + str(random.randint(1, 1000))
+    # val_dataset_name = DATASET_NAME + "_val_" + str(random.randint(1, 1000))
 
-    num_classes = '10cl'  # 'poteklina' # '1cl'
-    dataset = '16'  #
+    # num_classes = '10cl'  # 'poteklina' # '1cl'
+    # dataset = '16'  #
 
     # MetadataCatalog.get(val_dataset_name).thing_classes = train_dct1['10cl']['cat_lst'] #["person", "dog"]
-    register_coco_instances(val_dataset_name, {}, train_dct1[num_classes]['val'][dataset]['json'],
-                            train_dct1[num_classes]['val'][dataset]['data'])
-    dataset_dicts = DatasetCatalog.get(val_dataset_name)
+    # register_coco_instances(val_dataset_name, {}, train_dct1[num_classes]['val'][dataset]['json'],
+    #                         train_dct1[num_classes]['val'][dataset]['data'])
+    # dataset_dicts = DatasetCatalog.get(val_dataset_name)
 
     filenames = []
     uploaded_files = st.file_uploader("Choose a images", accept_multiple_files=True, type=["png", "jpg", "jpeg"])
