@@ -94,7 +94,7 @@ def inference(image, THR=0.5, path_to_model="/content/output/model_final.pth"):
 
 
 def inference_2(image, path_to_model, dataset_name, YAML_FILE, cat_lst=["0.2", "0.3", "0.5", "0.8"], thr=0.25,
-                aa_dct='None', device='cuda', loader='default', aug=[            T.Resize((512, 512))        ]):
+                aa_dct='None', device='cpu', loader='default', aug=[            T.Resize((512, 512))        ]):
     cfg = get_cfg()
     cfg.MODEL.DEVICE = device
 
